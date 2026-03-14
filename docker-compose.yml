@@ -1,0 +1,56 @@
+services:
+
+  test-service:
+    depends_on:
+      test-db:
+        condition: service_healthy
+      gateways:
+        condition: service_started
+    build: .
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      TZ: ${TZ}
+      PORT: ${PORT}
+      HOST: 0.0.0.0
+      NODE_ENV: ${NODE_ENV}
+      APP_KEY: ${APP_KEY}
+      DB_HOST: test-db
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      GATEWAY1_URL: http://gateways:3001
+      GATEWAY1_EMAIL: ${GATEWAY1_EMAIL}
+      GATEWAY1_TOKEN: ${GATEWAY1_TOKEN}
+      GATEWAY2_URL: http://gateways:3002
+      GATEWAY2_AUTH_TOKEN: ${GATEWAY2_AUTH_TOKEN}
+      GATEWAY2_AUTH_SECRET: ${GATEWAY2_AUTH_SECRET}
+
+  test-db:
+    image: mysql:8
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - ./db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 3306:3306
+
+  gateways:
+    image: matheusprotzen/gateways-mock
+    platform: linux/amd64
+    ports:
+      - 3001:3001
+      - 3002:3002
