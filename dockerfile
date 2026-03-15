@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3333
 
-CMD ["node", "ace.js", "serve", "--hmr"]
+CMD ["node", "ace", "serve", "--hmr"]

@@ -1,11 +1,9 @@
 # bemobile-teste-practico-backend
 
-## Pruebas unitarias
+## Unit tests
 
-Ejecutar solo la suite de unit tests:
+Run only the unit test suite:
 
 ```bash
-source ~/.nvm/nvm.sh
-nvm use 24
-node ace.js test unit
+node ace.js test
 ```
