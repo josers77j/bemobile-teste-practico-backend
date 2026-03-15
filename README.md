@@ -6,7 +6,7 @@ A RESTful multi-gateway payment management API built with AdonisJS 6, TypeScript
 
 ## Requirements
 
-- [Node.js 20+](https://nodejs.org/)
+- [Node.js 24+](https://nodejs.org/)
 - [Docker](https://www.docker.com/) and Docker Compose
 - [npm](https://www.npmjs.com/)
 
