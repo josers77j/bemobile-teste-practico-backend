@@ -18,7 +18,7 @@ export default class ProductsController {
   }
 
   async show({ params, response }: HttpContext) {
-    const id = params.id
+    const id = Number(params.id)
     const product = await this.productService.show(id)
 
     return response.ok({ product })
@@ -26,19 +26,19 @@ export default class ProductsController {
   async store({ request, response }: HttpContext) {
     const data = await request.validateUsing(CreateProductValidator)
     const product = await this.productService.store(data)
-    return response.ok({ product })
+    return response.created({ product })
   }
 
   async update({ params, request, response }: HttpContext) {
-    const id = params.id
+    const id = Number(params.id)
     const data = await request.validateUsing(UpdateProductValidator)
     const product = await this.productService.update(id, data)
     return response.ok({ product })
   }
 
   async destroy({ params, response }: HttpContext) {
-    const id = params.id
+    const id = Number(params.id)
     await this.productService.destroy(id)
-    response.noContent()
+    return response.noContent()
   }
 }

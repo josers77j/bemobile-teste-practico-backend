@@ -31,6 +31,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/auth/controllers/auth_controller').default['logout']>>>
     }
   }
+  'checkout.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/checkout'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#app/modules/checkout/validators/checkout_validator').CheckoutValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#app/modules/checkout/validators/checkout_validator').CheckoutValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/checkout/controllers/checkout_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/checkout/controllers/checkout_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'user.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/users'
@@ -149,6 +161,90 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#modules/products/controllers/products_controller').default['destroy']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/products/controllers/products_controller').default['destroy']>>>
+    }
+  }
+  'client.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/clients'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#modules/shared/validators/pagination_validator').PaginationValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/clients/controllers/client_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/clients/controllers/client_controller').default['index']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'client.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/clients/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/clients/controllers/client_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/clients/controllers/client_controller').default['show']>>>
+    }
+  }
+  'transaction.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/transactions'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#modules/shared/validators/pagination_validator').PaginationValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/transactions/controllers/transaction_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/transactions/controllers/transaction_controller').default['index']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'transaction.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/transactions/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/transactions/controllers/transaction_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/transactions/controllers/transaction_controller').default['show']>>>
+    }
+  }
+  'transaction.refund': {
+    methods: ["POST"]
+    pattern: '/api/v1/transactions/:id/refund'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/transactions/controllers/transaction_controller').default['refund']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/transactions/controllers/transaction_controller').default['refund']>>>
+    }
+  }
+  'gateway.update_priority': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/gateways/priority/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/gateways/controllers/gateway_controller').default['updatePriority']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/gateways/controllers/gateway_controller').default['updatePriority']>>>
+    }
+  }
+  'gateway.toggle_active_status': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/gateways/toggle/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#modules/gateways/controllers/gateway_controller').default['toggleActiveStatus']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#modules/gateways/controllers/gateway_controller').default['toggleActiveStatus']>>>
     }
   }
 }
