@@ -93,24 +93,28 @@ node ace test
 
 ## Environment Variables
 
-| Variable               | Description                  | Example                            |
-| ---------------------- | ---------------------------- | ---------------------------------- |
-| `PORT`                 | Application port             | `3333`                             |
-| `HOST`                 | Application host             | `0.0.0.0`                          |
-| `NODE_ENV`             | Environment                  | `development`                      |
-| `APP_KEY`              | Application secret key       | `random-32-char-string`            |
-| `TZ`                   | Timezone                     | `UTC`                              |
-| `DB_HOST`              | MySQL host                   | `localhost`                        |
-| `DB_PORT`              | MySQL port                   | `3306`                             |
-| `DB_USER`              | MySQL user                   | `root`                             |
-| `DB_PASSWORD`          | MySQL password               | `secret`                           |
-| `DB_DATABASE`          | MySQL database name          | `bemobile`                         |
-| `GATEWAY1_URL`         | Gateway 1 base URL           | `http://localhost:3001`            |
-| `GATEWAY1_EMAIL`       | Gateway 1 auth email         | `dev@betalent.tech`                |
-| `GATEWAY1_TOKEN`       | Gateway 1 auth token         | `FEC9BB078BF338F464F96B48089EB498` |
-| `GATEWAY2_URL`         | Gateway 2 base URL           | `http://localhost:3002`            |
-| `GATEWAY2_AUTH_TOKEN`  | Gateway 2 auth token header  | `tk_f2198cc671b5289fa856`          |
-| `GATEWAY2_AUTH_SECRET` | Gateway 2 auth secret header | `3d15e8ed6131446ea7e3456728b1211f` |
+```env
+TZ=UTC
+PORT=3333
+HOST=localhost
+NODE_ENV=development
+LOG_LEVEL=info
+APP_KEY=
+APP_URL=http://${HOST}:${PORT}
+SESSION_DRIVER=cookie
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=user_example
+DB_PASSWORD=password_example
+DB_DATABASE=db_example
+GATEWAY1_URL=http://localhost:3001
+GATEWAY1_EMAIL=gateway1_email
+GATEWAY1_TOKEN=gateway1_token
+GATEWAY2_URL=http://localhost:3002
+GATEWAY2_AUTH_TOKEN=gateway2_auth_token
+GATEWAY2_AUTH_SECRET=gateway2_auth_secret
+```
 
 ---
 
