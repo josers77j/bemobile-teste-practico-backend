@@ -116,14 +116,14 @@ const routes = {
   },
   'gateway.update_priority': {
     methods: ["PATCH"],
-    pattern: '/api/v1/gateways/priority/:id',
-    tokens: [{"old":"/api/v1/gateways/priority/:id","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/priority/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/priority/:id","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/priority/:id","type":0,"val":"priority","end":""},{"old":"/api/v1/gateways/priority/:id","type":1,"val":"id","end":""}],
+    pattern: '/api/v1/gateways/:id/priority',
+    tokens: [{"old":"/api/v1/gateways/:id/priority","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id/priority","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id/priority","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id/priority","type":1,"val":"id","end":""},{"old":"/api/v1/gateways/:id/priority","type":0,"val":"priority","end":""}],
     types: placeholder as Registry['gateway.update_priority']['types'],
   },
   'gateway.toggle_active_status': {
     methods: ["PATCH"],
-    pattern: '/api/v1/gateways/toggle/:id',
-    tokens: [{"old":"/api/v1/gateways/toggle/:id","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/toggle/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/toggle/:id","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/toggle/:id","type":0,"val":"toggle","end":""},{"old":"/api/v1/gateways/toggle/:id","type":1,"val":"id","end":""}],
+    pattern: '/api/v1/gateways/:id/toggle',
+    tokens: [{"old":"/api/v1/gateways/:id/toggle","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id/toggle","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id/toggle","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id/toggle","type":1,"val":"id","end":""},{"old":"/api/v1/gateways/:id/toggle","type":0,"val":"toggle","end":""}],
     types: placeholder as Registry['gateway.toggle_active_status']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>

@@ -225,7 +225,7 @@ export interface Registry {
   }
   'gateway.update_priority': {
     methods: ["PATCH"]
-    pattern: '/api/v1/gateways/priority/:id'
+    pattern: '/api/v1/gateways/:id/priority'
     types: {
       body: {}
       paramsTuple: [ParamValue]
@@ -237,7 +237,7 @@ export interface Registry {
   }
   'gateway.toggle_active_status': {
     methods: ["PATCH"]
-    pattern: '/api/v1/gateways/toggle/:id'
+    pattern: '/api/v1/gateways/:id/toggle'
     types: {
       body: {}
       paramsTuple: [ParamValue]

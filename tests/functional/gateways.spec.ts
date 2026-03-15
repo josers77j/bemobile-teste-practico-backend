@@ -58,7 +58,7 @@ test.group('Gateways', (group) => {
 
   test('should update gateway priority', async ({ assert, client }) => {
     const response = await client
-      .patch('/api/v1/gateways/priority/1')
+      .patch('/api/v1/gateways/1/priority')
       .header('authorization', `Bearer ${adminToken}`)
       .json({ priority: 3 })
 
@@ -68,7 +68,7 @@ test.group('Gateways', (group) => {
 
   test('should fail updating to duplicate priority', async ({ assert, client }) => {
     const response = await client
-      .patch('/api/v1/gateways/priority/1')
+      .patch('/api/v1/gateways/1/priority')
       .header('authorization', `Bearer ${adminToken}`)
       .json({ priority: 2 })
 
@@ -77,20 +77,20 @@ test.group('Gateways', (group) => {
 
   test('should toggle gateway active status', async ({ assert, client }) => {
     const response = await client
-      .patch('/api/v1/gateways/toggle/1')
+      .patch('/api/v1/gateways/1/toggle')
       .header('authorization', `Bearer ${adminToken}`)
 
     assert.equal(response.status(), 200)
     assert.isBoolean(response.body().gateway.isActive)
 
-    await client.patch('/api/v1/gateways/toggle/1').header('authorization', `Bearer ${adminToken}`)
+    await client.patch('/api/v1/gateways/1/toggle').header('authorization', `Bearer ${adminToken}`)
   })
 
   test('should not update gateway without admin role', async ({ assert, client }) => {
     const userToken = await createRegularUserToken()
 
     const response = await client
-      .patch('/api/v1/gateways/priority/1')
+      .patch('/api/v1/gateways/1/priority')
       .header('authorization', `Bearer ${userToken}`)
       .json({ priority: 2 })
 
@@ -98,14 +98,14 @@ test.group('Gateways', (group) => {
   })
 
   test('should fail updating gateway without auth', async ({ assert, client }) => {
-    const response = await client.patch('/api/v1/gateways/priority/1').json({ priority: 2 })
+    const response = await client.patch('/api/v1/gateways/1/priority').json({ priority: 2 })
 
     assert.equal(response.status(), 401)
   })
 
   test('should fail with invalid priority value', async ({ assert, client }) => {
     const response = await client
-      .patch('/api/v1/gateways/priority/1')
+      .patch('/api/v1/gateways/1/priority')
       .header('authorization', `Bearer ${adminToken}`)
       .json({ priority: -1 })
 

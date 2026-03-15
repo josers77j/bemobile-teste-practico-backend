@@ -89,10 +89,10 @@ router
         router
           .group(() => {
             router
-              .patch('/priority/:id', [GatewayController, 'updatePriority'])
+              .patch('/:id/priority', [GatewayController, 'updatePriority'])
               .where('id', router.matchers.number())
             router
-              .patch('/toggle/:id', [GatewayController, 'toggleActiveStatus'])
+              .patch('/:id/toggle', [GatewayController, 'toggleActiveStatus'])
               .where('id', router.matchers.number())
           })
           .use(middleware.role([ROLE_TYPE.ADMIN]))

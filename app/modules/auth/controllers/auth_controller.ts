@@ -5,8 +5,7 @@ import User from '#models/user'
 export default class AuthController {
   async login({ request, response }: HttpContext) {
     const { email, password } = await request.validateUsing(LoginValidator)
-    console.log('email:', email)
-    console.log('password:', password)
+
     const user = await User.verifyCredentials(email, password)
     const token = await User.accessTokens.create(user)
 
@@ -22,8 +21,6 @@ export default class AuthController {
   }
 
   async logout({ auth, response }: HttpContext) {
-    console.log('entro')
-
     await auth.use('api').invalidateToken()
     return response.noContent()
   }
