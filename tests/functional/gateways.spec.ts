@@ -1,4 +1,5 @@
 import { test } from '@japa/runner'
+import Gateway from '#models/gateway'
 import User from '#models/user'
 
 let adminToken: string
@@ -36,6 +37,23 @@ const createRegularUserToken = async () => {
 test.group('Gateways', (group) => {
   group.setup(async () => {
     adminToken = await createAdminToken()
+  })
+
+  group.teardown(async () => {
+    const gateway1 = await Gateway.findBy('name', 'Gateway1')
+    const gateway2 = await Gateway.findBy('name', 'Gateway2')
+
+    if (gateway1) {
+      gateway1.priority = 1
+      gateway1.isActive = true
+      await gateway1.save()
+    }
+
+    if (gateway2) {
+      gateway2.priority = 2
+      gateway2.isActive = true
+      await gateway2.save()
+    }
   })
 
   test('should update gateway priority', async ({ assert, client }) => {

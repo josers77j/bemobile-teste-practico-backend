@@ -28,7 +28,11 @@ export default class Gateway2Adapter implements GatewayInterface {
 
     if (!response.ok) throw new Error('Gateway2 charge failed')
 
-    const result = await response.json()
+    const result = (await response.json()) as { id?: string; status?: string }
+    if (!result.id || !result.status) {
+      throw new Error('Gateway2 returned an invalid charge payload')
+    }
+
     return {
       externalId: result.id,
       status: result.status,

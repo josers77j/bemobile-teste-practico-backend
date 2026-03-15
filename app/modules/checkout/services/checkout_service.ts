@@ -8,7 +8,33 @@ import { Exception } from '@adonisjs/core/exceptions'
 import GatewayService from '#modules/gateways/services/gateway_service'
 import type { CheckoutDto } from '../validators/checkout_validator.ts'
 import { inject } from '@adonisjs/core'
-import { TransactionStatus } from '#modules/transactions/types/status_type'
+import type { TransactionStatus } from '#modules/transactions/types/status_type'
+
+const PAID_STATUSES = new Set(['paid', 'approved', 'success', 'succeeded'])
+const REFUNDED_STATUSES = new Set(['refunded', 'chargeback', 'charge_back'])
+const FAILED_STATUSES = new Set([
+  'failed',
+  'error',
+  'rejected',
+  'declined',
+  'canceled',
+  'cancelled',
+])
+
+function normalizeGatewayStatus(rawStatus: unknown): TransactionStatus {
+  if (typeof rawStatus !== 'string') {
+    return 'pending'
+  }
+
+  const normalized = rawStatus.trim().toLowerCase()
+
+  if (PAID_STATUSES.has(normalized)) return 'paid'
+  if (REFUNDED_STATUSES.has(normalized)) return 'refunded'
+  if (FAILED_STATUSES.has(normalized)) return 'failed'
+
+  return 'pending'
+}
+
 @inject()
 export default class CheckoutService {
   constructor(private readonly gatewayService: GatewayService) {}
@@ -48,7 +74,7 @@ export default class CheckoutService {
       clientId: client.id,
       gatewayId,
       externalId,
-      status: status as TransactionStatus,
+      status: normalizeGatewayStatus(status),
       amount,
       cardLastNumbers: data.cardNumber.slice(-4),
     })
